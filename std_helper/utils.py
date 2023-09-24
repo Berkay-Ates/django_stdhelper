@@ -59,6 +59,6 @@ def scheduled_meal_mail():
     if matched is not None:
         schedule.every().day.at("21:23").do(send_mail)
 
-    while True:
-        schedule.run_pending()  # Planlanmış işleri kontrol et ve çalıştır
-        time.sleep(1)  # İşlemleri kontrol etmek için bir aralık ekleyebilirsiniz
+    # while True:
+    #     schedule.run_pending()  # Planlanmış işleri kontrol et ve çalıştır
+    #     time.sleep(1)  # İşlemleri kontrol etmek için bir aralık ekleyebilirsiniz
