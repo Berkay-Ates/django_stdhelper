@@ -4,7 +4,7 @@ from .serializers import UserSerializer, LessonSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .utils import sendMail
+from .utils import sendMail,send_user_lesson_mail
 
 
 @api_view(["GET"])
@@ -122,3 +122,9 @@ def user_lessons(request, user):
             return Response({"lessons": lessons_data}, status=status.HTTP_200_OK)
     except Exception as e:
         return Response({"BAD_REQUEST": ""}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def do_scheduled_jobs(request):
+    send_user_lesson_mail()
+    return Response({"results": "successfull"}, status=status.HTTP_200_OK)

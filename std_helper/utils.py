@@ -1,10 +1,10 @@
 import datetime
-import time
 from django.core.mail import send_mail
 from bs4 import BeautifulSoup
 import requests
-import schedule
-from datetime import datetime
+from .models import Users,Lessons
+from django.utils import timezone
+from datetime import *
 
 subject = "std helper hesap dogrulama"
 message = "https://djangostdhelper-production.up.railway.app/activateaccount/"
@@ -16,6 +16,15 @@ url = "http://www.beslenme.yildiz.edu.tr/yemekMenusu"
 
 def sendMail(target: list):
     send_mail(subject, message + target[0], from_email, target)
+    
+def send_meal_mail(meal:str):
+    users = Users.objects.all()
+    active_users = users.filter(is_active=True,meal_notify=True)
+    mail_receiver=[]
+    for user in active_users:
+        mail_receiver.append(user.mail)
+    
+    send_mail("yemek bilgilendirmesi", meal , from_email, mail_receiver)
 
 
 def get_meal():
@@ -44,21 +53,43 @@ def get_meal():
 
     return results
 
-
-def scheduled_meal_mail():
+def todays_meal():
     results = get_meal()
     now = datetime.now().strftime("%d-%m-%Y")
+    # now = datetime(year=2023, month=9, day=20, hour=15, minute=30).strftime("%d-%m-%Y")
     matched = None
     i = 0
     while matched is None and i < len(results):
-        print(results[i].split()[-2])
         if now == results[i].split()[-2]:
             matched = results[i]
+            print(matched)
         i = i + 1
+        
+    return matched
 
-    if matched is not None:
-        schedule.every().day.at("21:23").do(send_mail)
 
-    # while True:
-    #     schedule.run_pending()  # Planlanmış işleri kontrol et ve çalıştır
-    #     time.sleep(1)  # İşlemleri kontrol etmek için bir aralık ekleyebilirsiniz
+def send_user_lesson_mail():
+    lessons = Lessons.objects.all()
+    current_time = datetime.now().time()
+    current_time_minutes = current_time.hour * 60 + current_time.minute
+     
+    for lesson in lessons:
+        lesson_time = lesson.lesson_hour.hour * 60 + lesson.lesson_hour.minute
+        if(lesson.lesson_hour.hour == current_time.hour and lesson_time >= current_time_minutes) :
+            user = Users.objects.get(std_id=lesson.user.std_id)
+            message = lesson.lessons_name + ' dersi ' + lesson.class_room + ' sinifinda basliyor'
+            send_lesson_mail(target=[user.mail],message=message,lesson_name=lesson.lessons_name)
+    
+    if(current_time.hour == 11 or current_time.hour == 17 or current_time.hour == 10 or current_time.hour == 16):
+        send_meal_info()
+     
+     
+def send_lesson_mail(target,message,lesson_name):
+    send_mail(lesson_name,message, from_email, target)
+    
+            
+def send_meal_info():
+    meal = todays_meal()
+    if(meal is not None):
+        send_meal_mail(meal)
+        

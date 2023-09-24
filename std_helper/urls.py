@@ -26,6 +26,7 @@ from .views import (
     delete_lesson,
     set_meal_notify,
     user_lessons,
+    do_scheduled_jobs
 )
 
 urlpatterns = [
@@ -39,4 +40,5 @@ urlpatterns = [
     path("deletelesson/<str:lesson>/", delete_lesson),
     path("setmealnotify/", set_meal_notify),
     path("userlessons/<str:user>/", user_lessons),
+    path("scheduledjobs",do_scheduled_jobs)
 ]
