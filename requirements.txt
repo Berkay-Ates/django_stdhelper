@@ -5,7 +5,9 @@ charset-normalizer==3.2.0
 Django==4.2.5
 django-cors-headers==4.2.0
 djangorestframework==3.14.0
+gunicorn==21.2.0
 idna==3.4
+packaging==23.1
 psycopg2-binary==2.9.7
 pytz==2023.3.post1
 requests==2.31.0
