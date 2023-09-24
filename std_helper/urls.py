@@ -40,5 +40,5 @@ urlpatterns = [
     path("deletelesson/<str:lesson>/", delete_lesson),
     path("setmealnotify/", set_meal_notify),
     path("userlessons/<str:user>/", user_lessons),
-    path("scheduledjobs",do_scheduled_jobs)
+    path("scheduledjobs/",do_scheduled_jobs)
 ]
