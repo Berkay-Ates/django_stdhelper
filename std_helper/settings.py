@@ -78,12 +78,12 @@ TEMPLATES = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    # 'https://Berkay-Ates.github.io/std-helper-react/',
     "https://berkay-ates.github.io"
-    # 'https://berkay-ates.github.io/home',
-    # 'https://berkay-ates.github.io/register',
-    # 'https://berkay-ates.github.io/std-helper-react/home/'
-    # 'https://berkay-ates.github.io/std-helper-react/register/'
+    'https://berkay-ates.github.io/home',
+    'https://berkay-ates.github.io/register',
+    'https://Berkay-Ates.github.io/std-helper-react/',
+    'https://berkay-ates.github.io/std-helper-react/home/'
+    'https://berkay-ates.github.io/std-helper-react/register/'
 ]
 
 WSGI_APPLICATION = "std_helper.wsgi.application"
