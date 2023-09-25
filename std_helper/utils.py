@@ -72,7 +72,7 @@ def send_user_lesson_mail():
     lessons = Lessons.objects.all()
     current_time = datetime.now().time()
     print(current_time)
-    current_time_minutes = current_time.hour * 60 + current_time.minute
+    current_time_minutes = current_time.hour * 60 + current_time.minute + 180
      
     for lesson in lessons:
         lesson_time = lesson.lesson_hour.hour * 60 + lesson.lesson_hour.minute
