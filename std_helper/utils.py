@@ -75,6 +75,7 @@ def send_user_lesson_mail():
      
     for lesson in lessons:
         lesson_time = lesson.lesson_hour.hour * 60 + lesson.lesson_hour.minute
+        print((lesson_time-current_time_minutes) /60)
         if((lesson_time-current_time_minutes) /60 <= 1 and lesson_time >= current_time_minutes):
             user = Users.objects.get(std_id=lesson.user.std_id)
             message = lesson.lessons_name + ' dersi ' + lesson.class_room + ' sinifinda basliyor'
