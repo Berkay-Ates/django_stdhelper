@@ -71,6 +71,7 @@ def todays_meal():
 def send_user_lesson_mail():
     lessons = Lessons.objects.all()
     current_time = datetime.now().time()
+    print(current_time)
     current_time_minutes = current_time.hour * 60 + current_time.minute
      
     for lesson in lessons:
