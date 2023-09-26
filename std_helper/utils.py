@@ -82,7 +82,7 @@ def send_user_lesson_mail():
             message = lesson.lessons_name + ' dersi ' + lesson.class_room + ' sinifinda basliyor'
             send_lesson_mail(target=[user.mail],message=message,lesson_name=lesson.lessons_name)
     
-    if(current_time.hour == 11 or current_time.hour == 17 or current_time.hour == 10 or current_time.hour == 16):
+    if(current_time.hour == 8 or current_time.hour == 14 or current_time.hour == 10 or current_time.hour == 16):
         send_meal_info()
      
      
